@@ -1,3 +1,4 @@
+import ai.{BasicInstinctsAI, AI}
 import command._
 
 class ControlFunctionFactory {
@@ -6,8 +7,11 @@ class ControlFunctionFactory {
 
   val commandSerializer: CommandSerializer = new SimpleCommandSerializer
 
+  val ai: AI = new BasicInstinctsAI
+
   def create = (input: String) => {
-    val playerCommands = Seq(Move(1, 1))
+    val serverCommands = commandParser.parse(input)
+    val playerCommands = ai.reactTo(serverCommands)
     commandSerializer.serialize(playerCommands)
   }
 

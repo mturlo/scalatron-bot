@@ -14,7 +14,7 @@ object CommandPatterns {
   private val stateStr: String = """,?(.*)"""
 
 
-  val welcome = """Welcome\(name=(\w+),apocalypse=(\d+),round=(\d+),maxslaves=(\d+)\)""".r
+  val welcome = """Welcome\(name=([\w-]+),path=([\w/-]+),apocalypse=(\d+),round=(\d+)\)""".r
   val goodbye = """Goodbye\(energy=(\d+)\)""".r
   val react: Regex = reactStr.format(masterStr, collisionStr, slavesStr, stateStr).r
   val master: Regex = masterStr.replaceAll( """\\d\+""", """(\\d+)""").r
@@ -24,7 +24,7 @@ object CommandPatterns {
 
 }
 
-case class Welcome(name: String, apocalypse: Int, round: Int, maxSlaves: Int) extends ServerCommand
+case class Welcome(name: String, path: String, apocalypse: Int, round: Int) extends ServerCommand
 
 case class Goodbye(energy: Int) extends ServerCommand
 

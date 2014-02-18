@@ -10,9 +10,9 @@ class CommandParserSpec extends Specification {
 
     "parse Welcome command" in {
 
-      val commandStr = "Welcome(name=bot,apocalypse=666,round=13,maxslaves=10)"
+      val commandStr = "Welcome(name=my-bot,path=/some/path/to/my-bot,apocalypse=666,round=13)"
 
-      val expectedCommand = Welcome("bot", 666, 13, 10)
+      val expectedCommand = Welcome("my-bot", "/some/path/to/my-bot", 666, 13)
 
       parser.parse(commandStr) must beEqualTo(Seq(expectedCommand))
 
@@ -30,12 +30,12 @@ class CommandParserSpec extends Specification {
 
     "parse multiple commands in correct order" in {
 
-      val welcomeCommandStr = "Welcome(name=bot,apocalypse=666,round=13,maxslaves=10)"
+      val welcomeCommandStr = "Welcome(name=my-bot,path=/some/path/to/my-bot,apocalypse=666,round=13)"
       val goodbyeCommandStr = "Goodbye(energy=100)"
 
       val combinedCommandStr = welcomeCommandStr + '|' + goodbyeCommandStr
 
-      val expectedWelcomeCommand = Welcome("bot", 666, 13, 10)
+      val expectedWelcomeCommand = Welcome("my-bot", "/some/path/to/my-bot", 666, 13)
       val expectedGoodbyeCommand = Goodbye(100)
 
       val expectedCommandSeq = Seq(expectedWelcomeCommand, expectedGoodbyeCommand)

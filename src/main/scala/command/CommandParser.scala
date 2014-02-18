@@ -22,8 +22,8 @@ class SimpleCommandParser extends CommandParser {
 
     commandStrings.map {
 
-      case welcome(name, apocalypse, round, maxSlaves) =>
-        Welcome(name, apocalypse.toInt, round.toInt, maxSlaves.toInt)
+      case welcome(name, path, apocalypse, round) =>
+        Welcome(name, path, apocalypse.toInt, round.toInt)
 
       case goodbye(energy) =>
         Goodbye(energy.toInt)
