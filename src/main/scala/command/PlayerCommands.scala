@@ -18,4 +18,7 @@ case class Explode(size: Int) extends PlayerCommand {
   override def toString = "Explode(size=%s)".format(size)
 }
 
+case class Say(text: String) extends PlayerCommand {
+  override def toString: String = "Say(text=%s)".format(text.replaceAll("|=,\\(", ""))
+}
 
