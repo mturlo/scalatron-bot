@@ -1,6 +1,6 @@
 package command
 
-import view.View
+import view.{Position, View}
 import scala.util.matching.Regex
 
 trait ServerCommand

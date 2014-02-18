@@ -1,6 +1,6 @@
 package command
 
-import view.View
+import view.{Position, SimpleViewParser, ViewParser}
 import scala.util.matching.Regex
 
 
@@ -11,6 +11,8 @@ trait CommandParser {
 }
 
 class SimpleCommandParser extends CommandParser {
+
+  val viewParser: ViewParser = new SimpleViewParser
 
   import CommandPatterns._
 
@@ -33,7 +35,7 @@ class SimpleCommandParser extends CommandParser {
         React(
           generation.toInt,
           time.toInt,
-          View(Seq()), //todo parse view
+          viewParser.parse(view),
           energy.toInt,
           name,
           optionalsMap.getOrElse(master, None).asInstanceOf[Option[Position]],
@@ -47,8 +49,8 @@ class SimpleCommandParser extends CommandParser {
 
   def determineOptional(optionStrings: Seq[String]): Map[Regex, Option[Any]] = {
     optionStrings.map {
-      case master(x, y) => master -> Some(Position(x.toInt, y.toInt))
-      case collision(x, y) => collision -> Some(Position(x.toInt, y.toInt))
+      case master(x, y) => master -> Some(x.toInt, y.toInt)
+      case collision(x, y) => collision -> Some(x.toInt, y.toInt)
       case slaves(num) => slaves -> Some(num.toInt)
       case state(k) if !k.isEmpty =>
         val stateStrs = k.split(',').map {

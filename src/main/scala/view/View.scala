@@ -1,10 +1,10 @@
 package view
 
-import command.Position
+case class View(locations: Seq[Location]) {
+  def apply(x: Int, y: Int): Option[Location] = locations.find(loc => loc._1 == x && loc._2 == y)
+}
 
-case class View(locations: Seq[Location])
-
-abstract class Entity(symbol: Char)
+abstract class Entity(val symbol: Char)
 
 case object Unknown extends Entity('?')
 
@@ -27,5 +27,3 @@ case object Toxifera extends Entity('p')
 case object Fluppet extends Entity('B')
 
 case object Snorg extends Entity('b')
-
-case class Location(position: Position, entity: Entity)
